@@ -1,0 +1,3 @@
+[submodule "include/external/ReflectionApi"]
+	path = include/external/ReflectionApi
+	url = https://github.com/MisterixTeamAsmodeus/ReflectionApi.git
