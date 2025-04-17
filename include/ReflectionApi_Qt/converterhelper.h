@@ -25,7 +25,7 @@ std::string convertToString(const T& value, int)
 } // namespace Impl
 
 template<>
-class Converter<QDateTime> final
+class Converter<QDateTime>
 {
     static constexpr auto mask = "yyyy-MM-dd HH:mm:ss.zzz";
 
@@ -44,7 +44,7 @@ public:
 };
 
 template<>
-class Converter<QDate> final
+class Converter<QDate>
 {
     static constexpr auto mask = "yyyy-MM-dd";
 
@@ -63,7 +63,7 @@ public:
 };
 
 template<>
-class Converter<QString> final
+class Converter<QString>
 {
 public:
     ~Converter() = default;
@@ -80,7 +80,7 @@ public:
 };
 
 template<>
-class Converter<QByteArray> final
+class Converter<QByteArray>
 {
 public:
     ~Converter() = default;
