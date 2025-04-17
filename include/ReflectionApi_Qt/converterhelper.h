@@ -30,14 +30,14 @@ class Converter<QDateTime>
     static constexpr auto mask = "yyyy-MM-dd HH:mm:ss.zzz";
 
 public:
-    ~Converter() = default;
+    virtual ~Converter() = default;
 
-    void fillFromString(QDateTime& value, const std::string& str) const
+    virtual void fillFromString(QDateTime& value, const std::string& str) const
     {
         value = QDateTime::fromString(QString::fromStdString(str), mask);
     }
 
-    std::string convertToString(const QDateTime& value) const
+    virtual std::string convertToString(const QDateTime& value) const
     {
         return value.toString(mask).toStdString();
     }
@@ -49,14 +49,14 @@ class Converter<QDate>
     static constexpr auto mask = "yyyy-MM-dd";
 
 public:
-    ~Converter() = default;
+    virtual ~Converter() = default;
 
-    void fillFromString(QDate& value, const std::string& str) const
+    virtual void fillFromString(QDate& value, const std::string& str) const
     {
         value = QDate::fromString(QString::fromStdString(str), mask);
     }
 
-    std::string convertToString(const QDate& value) const
+    virtual std::string convertToString(const QDate& value) const
     {
         return value.toString(mask).toStdString();
     }
@@ -66,14 +66,14 @@ template<>
 class Converter<QString>
 {
 public:
-    ~Converter() = default;
+    virtual ~Converter() = default;
 
-    void fillFromString(QString& value, const std::string& str) const
+    virtual void fillFromString(QString& value, const std::string& str) const
     {
         value = QString::fromStdString(str);
     }
 
-    std::string convertToString(const QString& value) const
+    virtual std::string convertToString(const QString& value) const
     {
         return value.toStdString();
     }
@@ -83,14 +83,14 @@ template<>
 class Converter<QByteArray>
 {
 public:
-    ~Converter() = default;
+    virtual ~Converter() = default;
 
-    void fillFromString(QByteArray& value, const std::string& str) const
+    virtual void fillFromString(QByteArray& value, const std::string& str) const
     {
         value = QByteArray::fromStdString(str);
     }
 
-    std::string convertToString(const QByteArray& value) const
+    virtual std::string convertToString(const QByteArray& value) const
     {
         return value.toStdString();
     }
