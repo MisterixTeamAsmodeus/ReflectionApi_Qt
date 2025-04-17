@@ -79,4 +79,21 @@ public:
     }
 };
 
+template<>
+class Converter<QByteArray> final
+{
+public:
+    ~Converter() = default;
+
+    void fillFromString(QByteArray& value, const std::string& str) const
+    {
+        value = QByteArray::fromStdString(str);
+    }
+
+    std::string convertToString(const QByteArray& value) const
+    {
+        return value.toStdString();
+    }
+};
+
 } // namespace ReflectionApi

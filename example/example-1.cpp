@@ -22,4 +22,5 @@ int main()
     test_type(QDate::currentDate());
     test_type(QUuid::createUuid());
     test_type(QString("test_value"));
+    test_type(QByteArray("test_value"));
 }
