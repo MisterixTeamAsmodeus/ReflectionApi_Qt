@@ -7,93 +7,95 @@
 #include <QDateTime>
 #include <QString>
 
-namespace ReflectionApi {
-namespace Impl {
+namespace reflection_api {
+namespace impl {
 
-template<typename T, std::enable_if_t<SFINAE::has_from_string_v<T>, bool> = true>
-void fillFromString(T& value, const std::string& str, int)
+///Реализация для классов имеющих оператор fromString
+template<typename T, std::enable_if_t<sfinae::has_from_string_v<T>, bool> = true>
+void fill_from_string(T& value, const std::string& str, int)
 {
     value = T::fromString(QString::fromStdString(str));
 }
 
-template<typename T, std::enable_if_t<SFINAE::has_to_string_v<T>, bool> = true>
-std::string convertToString(const T& value, int)
+///Реализация для классов имеющих оператор toString
+template<typename T, std::enable_if_t<sfinae::has_to_string_v<T>, bool> = true>
+std::string convert_to_string(const T& value, int)
 {
     return value.toString().toStdString();
 }
 
-} // namespace Impl
+} // namespace impl
 
 template<>
-class Converter<QDateTime>
+class converter<QDateTime>
 {
     static constexpr auto mask = "yyyy-MM-dd HH:mm:ss.zzz";
 
 public:
-    virtual ~Converter() = default;
+    virtual ~converter() = default;
 
-    virtual void fillFromString(QDateTime& value, const std::string& str) const
+    virtual void fill_from_string(QDateTime& value, const std::string& str) const
     {
         value = QDateTime::fromString(QString::fromStdString(str), mask);
     }
 
-    virtual std::string convertToString(const QDateTime& value) const
+    virtual std::string convert_to_string(const QDateTime& value) const
     {
         return value.toString(mask).toStdString();
     }
 };
 
 template<>
-class Converter<QDate>
+class converter<QDate>
 {
     static constexpr auto mask = "yyyy-MM-dd";
 
 public:
-    virtual ~Converter() = default;
+    virtual ~converter() = default;
 
-    virtual void fillFromString(QDate& value, const std::string& str) const
+    virtual void fill_from_string(QDate& value, const std::string& str) const
     {
         value = QDate::fromString(QString::fromStdString(str), mask);
     }
 
-    virtual std::string convertToString(const QDate& value) const
+    virtual std::string convert_to_string(const QDate& value) const
     {
         return value.toString(mask).toStdString();
     }
 };
 
 template<>
-class Converter<QString>
+class converter<QString>
 {
 public:
-    virtual ~Converter() = default;
+    virtual ~converter() = default;
 
-    virtual void fillFromString(QString& value, const std::string& str) const
+    virtual void fill_from_string(QString& value, const std::string& str) const
     {
         value = QString::fromStdString(str);
     }
 
-    virtual std::string convertToString(const QString& value) const
+    virtual std::string convert_to_string(const QString& value) const
     {
         return value.toStdString();
     }
 };
 
 template<>
-class Converter<QByteArray>
+class converter<QByteArray>
 {
 public:
-    virtual ~Converter() = default;
+    virtual ~converter() = default;
 
-    virtual void fillFromString(QByteArray& value, const std::string& str) const
+    virtual void fill_from_string(QByteArray& value, const std::string& str) const
     {
         value = QByteArray::fromStdString(str);
     }
 
-    virtual std::string convertToString(const QByteArray& value) const
+    virtual std::string convert_to_string(const QByteArray& value) const
     {
         return value.toStdString();
     }
 };
 
-} // namespace ReflectionApi
+} // namespace reflection_api

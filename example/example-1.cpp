@@ -8,10 +8,10 @@
 template<typename Type>
 void test_type(const Type& start_value)
 {
-    auto type_converter = ReflectionApi::Converter<Type>();
-    auto type_s = type_converter.convertToString(start_value);
+    auto type_converter = reflection_api::converter<Type>();
+    auto type_s = type_converter.convert_to_string(start_value);
     Type type_c;
-    type_converter.fillFromString(type_c, type_s);
+    type_converter.fill_from_string(type_c, type_s);
 
     assert(start_value == type_c);
 }
